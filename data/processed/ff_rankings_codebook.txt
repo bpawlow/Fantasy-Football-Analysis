@@ -1,0 +1,150 @@
+FANTASY FOOTBALL RANKINGS DATA (2000 - 2019) 
+
+Description: 
+
+	Data representing individual NFL statistics and fantasy football statistics for various offensive NFL players from 2000 to 2019. There is a data table for each individual season in addition to the complete data set that includes all seasons within the 20-year span. 
+
+Format: 
+
+Data frame(s) with columns and rows/observations
+
+[player]
+
+	Name of NFL player
+ 
+[year] 
+
+	Year of NFL season
+
+[tm] 
+
+	The NFL team of the player
+
+[fant_pos] 
+
+	Primary/fantasy football position 
+
+[age] 
+
+	Player's age (as of Dec 31st of that year)
+
+[g] 
+
+	Games played
+
+[gs] 
+
+	Games started (as offensive or defensive player)
+
+[cmp] 
+
+	Passes completed
+
+[pass_att] 
+
+	Attempted passes
+
+[pass_yds] 
+
+	Passing yards (for teams, sack yardage is deducted from this total)
+
+[pass_td] 
+
+	Passing touchdowns 
+
+[int] 
+
+	Interceptions thrown
+
+[rush_att] 
+
+	Rushing attempts (sacks not included)
+
+[rush_yds] 
+
+	Rushing yards (sacks not included)
+
+[y_a] 
+
+	Yards per attempt
+
+[rush_td] 
+
+	Rushing touchdowns
+
+[tgt] 
+
+	Receiving targets 
+
+[rec] 
+
+	Receptions
+
+[rec_yds] 
+
+	Receiving yards
+
+[y_r] 
+
+	Yards per reception
+
+[rec_td] 
+
+	Receiving touchdowns
+
+[fmb] 
+
+	Total fumbles (both lost and recovered included) 
+
+[fl] 
+
+	Fumbles lost by player or team 
+
+[score_td] 
+
+	Total scoring touchdowns
+
+[x2pm] 
+
+	Two-point conversions made
+
+[x2pp] 
+
+	Two-point conversion passes
+
+[fant_pt] 
+
+	Total fantasy points (standard scoring) 
+
+[ppr] 
+
+	Total fantasy points (PPR* scoring) 
+
+[dk_pt] 
+
+	Total fantasy points (DraftKings scoring) 
+
+[fd_pt] 
+
+	Total fantasy points (FanDuel scoring) 
+
+[vbd] 
+
+	VBD Calculation (Player's fantasy points - fantasy points of baseline** player) 
+
+[pos_rank] 
+
+	Fantasy rank within player's position
+
+[ov_rank] 
+
+	Overall fantasy rank
+
+
+*Points Per Reception 
+**12th-ranked QB, 24th-ranked RB, 30th-ranked WR, or 12th-ranked TE
+
+Source: 
+
+Pro Football Reference 
+https://www.pro-football-reference.com/years/

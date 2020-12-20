@@ -1,0 +1,119 @@
+---
+title: '**Executive Summary**'
+author: "Bradley Pawlow"
+date: "12/8/2020"
+output:
+  html_document:
+    theme: united
+    highlight: tango
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+<style type="text/css">
+
+h1.title {
+  font-size: 48px;
+  color: #A52A2A;
+  text-align: center;
+}
+h4.author { 
+  font-size: 24px;
+  color: DarkBlue;
+  text-align: center;
+}
+h4.date { 
+  font-size: 24px;
+  color: DarkBlue;
+  text-align: center;
+}
+ .tocify ul, .tocify li {
+    line-height: 30px;
+}
+
+h1, h2, h3 {
+  text-align: center;
+  font_size: 60px;
+  font-weight: bold;
+}
+
+body {
+    font-size: 24px;
+}
+</style>
+
+```{r, echo = FALSE, message=FALSE, warning = FALSE}
+### Loaded Packages
+source("Main_EDA.R")
+```
+
+## Introduction
+
+This report summarizes what I consider as the three most interesting findings of my exploratory data analysis. 
+
+## NFL Team Trends
+
+```{r, echo = FALSE, message=FALSE, warning = FALSE}
+#Linear trends of 10 NFL Teams 
+
+team_fantasy_prod %>% 
+  filter(tm == "CIN" | tm == "DAL" | tm == "HOU" | tm == "MIA" | tm == "MIN" | 
+      tm == "NOR" |  tm == "NWE" | tm == "PHI" | tm == "SFO" | tm == "WAS") %>% 
+  ggplot(aes(x = year, y = total_ff_pts)) +
+  geom_point(size = 1) + 
+  facet_wrap(~tm, scales = "free") +
+  stat_smooth(method = "lm", col = "red") +
+  labs(title = "Total Fantasy Points Scored By Selected Teams (2015-2019)",
+       x = "Year",
+       y = "Total Fantasy Points")
+```
+
+My first interesting finding relates to patterns in 11 NFL teams over the last 5 years. As seen from the above line graphs, there have been NFL teams that have either declined in offensive production or improved in offensive production. In fact, most of these trends can be modeled linearly, with teams such as Houston Texans, San Francisco 49ers, New England Patriots, Philadelphia Eagles, and the Washington Team showing the strongest confidence intervals for the generated linear models. This has led to the discovery that the relationship between strong offenses and strong individual fantasy players has a positive correlation. With this fact, we can better predict not only how well an NFL team will likely perform offensively in a given season but also how well a fantasy player will perform given they are either on a productive offensive team or not. Moreover, this can lead to some predictions on how well an NFL team will perform in terms of their season record since offense is one of two factors that help a NFL team win games (the other factor is defense which is not addressed in my report). With additional research I also discovered that three main factors play a major role in offensive success: newly acquired talent at the quarterback, running back, and/or wide receiver positions; improved offensive line; and the hiring of exceptional coach or coaches. This theory has been shown time and time again, especially with the Baltimore Ravens in 2019 (14-2 record) and the Pittsburgh Steelers (current record 11-1) in 2020.
+
+## Shift to More of a Passing Game 
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+#QB passing production
+complete_ff_data %>%
+  filter(vbd > 0, fant_pos == "QB") %>% 
+  ggplot(aes(x = year, y = pass_yds)) +
+  geom_point(size = 1) + 
+  geom_jitter() +
+  stat_smooth(method = "lm", col = "blue") + 
+  labs(title = "QB Passing Production Over Time",
+       x = "Year",
+       y = "Total Passing Yards")
+```
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+#TE receiving production over the years
+complete_ff_data %>%
+  filter(vbd > 0, fant_pos == "TE") %>% 
+  ggplot(aes(x = year, y = rec_yds)) +
+  geom_point(size = 1) + 
+  geom_jitter() +
+  stat_smooth(method = "lm", col = "green") + 
+  labs(title = "TE Receiving Yard Production Over Time",
+       x = "Year",
+       y = "Total Receiving Yards")
+```
+
+When first analyzing the fantasy production of QBs over the last 20 years, it was clear to me that there was an upward trend. This led to a second interesting finding: QBs are passing more and are utilizing their TEs more in the offense. This was evident in the above scatterplots and linear models highlighting the increase in passing yards for QBs with the increase of receiving yards for TEs. This is important because it tells us more about how the playing style of the NFL has shifted to a passing game and how the QB has become more crucial for leading an offensive. This tells us that perhaps receivers, in general, are becoming more valuable as well. We are seeing this at the TE position especially, which brings me to my last critical finding. 
+
+## RBs Are Still Valuable, TEs Are Increasing in Value
+
+```{r, fig.width=8,fig.height=6, echo = FALSE, warning = FALSE, message = FALSE}
+#VBD scores over time at each position
+
+vbd_data %>% 
+  group_by(year, fant_pos) %>% 
+  summarize(avg_vbd = mean(vbd, trim = 0.1)) %>% 
+  ggplot(aes(x = year, y = avg_vbd)) +
+  geom_smooth(aes(color = fant_pos), size = 1, se = FALSE) +
+  labs(title = "Highest Average VBD Score for Top-10 Players At Each Position Over Time",
+       x = "Year",
+       y = "Average VBD Score") 
+```
+
+My last important finding deals with the trend of different offensive positions over a 20-year period. By utilizing the mean VBD for each position throughout the last 20 years, I discovered that despite the NFL turning to more passing, RBs are still very valuable for fantasy production. More specifically, a RB that is projected within a top-15 or top-20 draft pick would provide more value than other positions around the same projection. Based on the same plot, we also see that despite QBs passing more, there are usually many choices for solid QBs due to low variance meaning you can afford to wait when drafting your first QB for your team. And, like mentioned earlier, TEs are generating more receiving yards on average than before which can mean that they are worth higher draft picks if the TE you are targeting has proven to perform well. 

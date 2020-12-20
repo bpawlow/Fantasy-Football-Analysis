@@ -1,0 +1,27 @@
+---
+title: "Final Project Data Memo"
+author: "Bradley Pawlow"
+date: "10/21/2020"
+output: html_document
+---
+
+## Introduction
+
+<BLOCKQUOTE><font size="4">After extensive research, I have decided to analyze fantasy football statistics within the last 10 years. More specifically, the data will be analyzed according to individual NFL players and include categories such as fantasy points and fantasy rankings for each year in addition to NFL statistics such as total yards, targets, and touchdowns.</font>
+  
+
+## Data Source
+
+<BLOCKQUOTE><font size="4">My data source is the website Pro Football Reference. I obtained my data by using a compiled version of the NFL dataset for each year since 2008 (https://www.pro-football-reference.com/years/). Since the data is separated for each successive year, I was able to include all the data in separate Excel spreadsheets for each year. In addition, I was able to compile the entire dataset into a summary Excel spreadsheet, however I may have to instead use R to merge the separate datasets for better results.</font>
+
+## Why this Data? 
+
+<BLOCKQUOTE><font size="4">The main reason I chose this data is because I am fascinated with fantasy football statistics and trends. I am an active member of the fantasy football community and manage at least three teams every year where large cash prizes are involved. In fact, I am very interested in pursuing a career in sports data analysis or sports technology, so I thought a great way to start building experience would be to complete my final project using fantasy football data. If I can accurately determine critical performance trends over the past years, such as an increase in fantasy value for a particular position, fantasy potential for a particular player, or the affect of specific teams on their player’s performance, then I may be able to perform better in my leagues for future seasons. These are some of the topics that I intend on learning more about in my final project. </font>
+
+## Potential Data Issues 
+
+<BLOCKQUOTE><font size="4">There may be some frustrating issues when organizing and preparing my dataset. For example, I will need to determine how to assign blank values for variables such as fantasy points or yards based on the number of games played. More specifically, if there are players that played 0 games, I will have to either assign 0’s, assign NA values, or filter them out completely according to how I want to visualize the data in the ggplot. In addition, I may need to merge the datasets for each separate year and eliminate unnecessary variables as part of the cleaning process. </font>
+
+## Conclusion
+
+<BLOCKQUOTE><font size="4">Although there may be some cleaning and merging involved, I anticipate focusing more on the EDA report. My end goal is to at least discover valuable information that will be applicable to not only me, but to other fantasy football enthusiasts around the globe. </font>
