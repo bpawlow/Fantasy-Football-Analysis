@@ -171,7 +171,7 @@ box_plot_data %>%
   filter(fant_pos == "QB", tot_games >= 100) %>% 
   select(player, year, avg_ff_yr) %>% 
   head(125) %>% 
-  ggplot(aes(x = reorder(player, avg_ff_yr), y = avg_ff_yr)) + 
+  ggplot(aes(x = fct_rev(player), y = avg_ff_yr)) + 
   geom_boxplot(aes(group = player)) +
   geom_jitter() +
   coord_flip() +
@@ -204,7 +204,7 @@ box_plot_data %>%
   filter(fant_pos == "RB", tot_games >= 50) %>% 
   select(player, year, avg_ff_yr) %>% 
   head(172) %>% 
-  ggplot(aes(x = reorder(player, avg_ff_yr), y = avg_ff_yr)) + 
+  ggplot(aes(x = fct_rev(player), y = avg_ff_yr)) + 
   geom_boxplot(aes(group = player)) +
   geom_jitter() +
   coord_flip() +
@@ -237,8 +237,8 @@ best_career_avgs %>%
 box_plot_data %>% 
   filter(fant_pos == "WR", tot_games >= 50) %>% 
   select(player, year, avg_ff_yr) %>% 
-  head(194) %>% 
-  ggplot(aes(x = reorder(player, avg_ff_yr), y = avg_ff_yr)) + 
+  head(201) %>% 
+  ggplot(aes(x = fct_rev(player), y = avg_ff_yr)) + 
   geom_boxplot(aes(group = player)) +
   geom_jitter() +
   coord_flip() +
@@ -271,8 +271,8 @@ best_career_avgs %>%
 box_plot_data %>% 
   filter(fant_pos == "TE", tot_games >= 50) %>% 
   select(player, year, avg_ff_yr) %>% 
-  head(84) %>% 
-  ggplot(aes(x = reorder(player, avg_ff_yr), y = avg_ff_yr)) + 
+  head(90) %>% 
+  ggplot(aes(x = fct_rev(player), y = avg_ff_yr)) + 
   geom_boxplot(aes(group = player)) +
   geom_jitter() +
   coord_flip() +
@@ -312,7 +312,7 @@ most_top_finishes %>%
 
 most_top_finishes %>%
   filter(fant_pos == "RB") %>% 
-  slice(1:10) %>% 
+  slice(1:15) %>% 
   data.frame
 ```
 
@@ -323,14 +323,14 @@ most_top_finishes %>%
 
 most_top_finishes %>%
   filter(fant_pos == "WR") %>% 
-  slice(1:10) %>% 
+  slice(1:15) %>% 
   data.frame
 ```
 
 **Most Top Ten Finishes at TE** 
 
 ```{r, echo=FALSE}
-#Most Top Ten Finishes at QB
+#Most Top Ten Finishes at TE
 
 most_top_finishes %>%
   filter(fant_pos == "TE") %>% 

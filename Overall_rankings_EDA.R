@@ -10,21 +10,8 @@ source("data_cleaning.R")
 # Most Consistent Fantasy Players Over Their Career----
 
 # Calculating top career average fantasy points for NFL player
-best_career_avgs <- complete_ff_data %>%
-  filter(g > 8) %>% 
-  group_by(ply_code) %>% 
-  summarize(player = player,
-            fant_pos = fant_pos,
-            tot_games = sum(g),
-            tot_ff_pts = sum(fant_pt)
-            ) %>% 
-  mutate(career_avg_fp = tot_ff_pts / tot_games) %>%
-  unique() %>% 
-  arrange(desc(career_avg_fp)) %>%
-  ungroup(ply_code) %>%
-  select(-ply_code)
 
-box_plot_data <- complete_ff_data %>%
+sub_data <- complete_ff_data %>%
   filter(g > 8) %>% 
   group_by(ply_code) %>% 
   summarize(player = player,
@@ -36,7 +23,23 @@ box_plot_data <- complete_ff_data %>%
             tot_ff_pts = sum(fant_pt),
   ) %>% 
   mutate(career_avg_fp = tot_ff_pts / tot_games,
-         avg_ff_yr = fant_pt / g) %>% 
+         avg_ff_yr = fant_pt / g) 
+
+box_plot_data <- sub_data %>%
+  arrange(desc(career_avg_fp)) %>%
+  ungroup(ply_code) %>%
+  select(-ply_code)
+
+best_career_avgs <- complete_ff_data %>%
+  filter(g > 8) %>% 
+  group_by(ply_code) %>% 
+  summarize(player = player,
+            fant_pos = fant_pos,
+            tot_games = sum(g),
+            tot_ff_pts = sum(fant_pt)
+            ) %>% 
+  mutate(career_avg_fp = tot_ff_pts / tot_games) %>%
+  unique() %>% 
   arrange(desc(career_avg_fp)) %>%
   ungroup(ply_code) %>%
   select(-ply_code)
@@ -53,7 +56,7 @@ box_plot_data %>%
   filter(fant_pos == "QB", tot_games >= 100) %>% 
   select(player, year, avg_ff_yr) %>% 
   head(125) %>% 
-  ggplot(aes(x = reorder(player, avg_ff_yr), y = avg_ff_yr)) + 
+  ggplot(aes(x = fct_rev(player), y = avg_ff_yr)) + 
   geom_boxplot(aes(group = player)) +
   geom_jitter() +
   coord_flip()
@@ -69,9 +72,9 @@ best_career_avgs %>%
 
 box_plot_data %>% 
   filter(fant_pos == "RB", tot_games >= 50) %>% 
-  select(player, year, avg_ff_yr) %>% 
+  select(player, year, fant_pt, avg_ff_yr) %>% 
   head(172) %>% 
-  ggplot(aes(x = reorder(player, avg_ff_yr), y = avg_ff_yr)) + 
+  ggplot(aes(x = fct_rev(player), y = avg_ff_yr)) + 
   geom_boxplot(aes(group = player)) +
   geom_jitter() +
   coord_flip()
@@ -87,8 +90,8 @@ best_career_avgs %>%
 box_plot_data %>% 
   filter(fant_pos == "WR", tot_games >= 50) %>% 
   select(player, year, avg_ff_yr) %>% 
-  head(194) %>% 
-  ggplot(aes(x = reorder(player, avg_ff_yr), y = avg_ff_yr)) + 
+  head(201) %>% 
+  ggplot(aes(x = fct_rev(player), y = avg_ff_yr)) + 
   geom_boxplot(aes(group = player)) +
   geom_jitter() +
   coord_flip()
@@ -104,8 +107,8 @@ best_career_avgs %>%
 box_plot_data %>% 
   filter(fant_pos == "TE", tot_games >= 50) %>% 
   select(player, year, avg_ff_yr) %>% 
-  head(84) %>% 
-  ggplot(aes(x = reorder(player, avg_ff_yr), y = avg_ff_yr)) + 
+  head(90) %>% 
+  ggplot(aes(x = fct_rev(player), y = avg_ff_yr)) + 
   geom_boxplot(aes(group = player)) +
   geom_jitter() +
   coord_flip()
@@ -134,13 +137,13 @@ most_top_finishes %>%
 
 most_top_finishes %>%
   filter(fant_pos == "RB") %>% 
-  slice(1:10)
+  slice(1:15)
 
 #Top 10 WRs
 
 most_top_finishes %>%
   filter(fant_pos == "WR") %>% 
-  slice(1:10)
+  slice(1:15)
 
 #Top 10 TEs
 
